@@ -1,0 +1,41 @@
+- **Linux**
+- [jenkins](404)
+    - [安装jenkins](jenkins/安装jenkins)
+    - [远程执行shell](jenkins/Jenkins在远程主机执行shell)
+    - [test]()
+    	- [test](test)
+    	- [qita](test)
+- [Supervisor](404)
+    - [supervisor安装使用](supervisor/supervisor安装使用)
+    - [异常处理](supervisor/supervisor异常处理)
+- [Nginx](404)
+    - [Nginx修改mime类型](nginx/Nginx修改mime类型)
+- [Frp](404)
+    - [内网穿透](frp/内网frp穿透搭建教程)
+- [Zabbix]()
+    - [docker运行zabbix](zabbix/docker运行zabbix)
+- [V2ray]()
+    - [CentOS搭建v2ray](v2ray/CentOS搭建v2ray)
+- [其他]()
+    - [WireGuard异地组网](other/WireGuard组建异地服务器内网)
+- [常用](222.md)
+<!-- - **PHP**
+- **Python**
+- **Mysql**
+- **Thinkphp**
+- **Metasploit**
+- **2Bizbox**
+- **Bitcoin**
+- **Css**
+- **Bash**
+- **VB_NET**
+- **Docker**
+- **Kubernetes**
+- **Other**
+- **Other**
+- **Other**
+- **Other**
+- **Other**
+- [ThinkPHP5.1文档](https://www.kancloud.cn/manual/thinkphp5_1/353946)
+- [ThinkPHP6.0文档](https://www.kancloud.cn/manual/thinkphp6_0/1037479)
+ -->

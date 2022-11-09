@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="keywords" content="c32's blog" />
+    <meta name="description" content="c32's blog 每天学习一点点,每天进步一点点.">
+    <link rel="icon" href="https://cdn.jsdelivr.net/npm/skx@0.1.2/img/uim-logo.jpg">
+    <title>c32's blog</title>
+    <meta property="og:url" content="https://www.19aq.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://cdn.jsdelivr.net/npm/skx@0.1.2/img/uim-logo.jpg">
+    <meta property="og:title" content="c32's blog">
+    <meta property="og:description" content="c32's blog 每天学习一点点,每天进步一点点.">
+    <link rel="stylesheet" href="https://qiniu.19aq.com/theme-simple.css">
+    <link rel="stylesheet" href="https://qiniu.19aq.com/prism-github.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+    <!-- 侧边栏文件夹样式,依赖侧边栏加强js -->
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar-folder.min.css" /> -->
+    <!-- 评论 -->
+    <script src="https://qiniu.19aq.com/gitalk.min.js"></script>
+    <style>
+        :root {
+            --base-font-size: 14px;
+            --content-max-width : 68em;
+        }
+        html,
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        code {
+            font-family: Consolas, "Panic Sans", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Menlo, "Microsoft Yahei", monospace !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- 评论容器 -->
+    <div id="gitalk-container"></div>
+    <script>
+        window.$docsify = {
+            name: "c32's blog",
+            repo: 'https://github.com/amd5/blog',
+            // Search Support
+            search: {
+                maxAge: 8640000, // 过期时间，单位毫秒，默认一天
+                paths: 'auto',
+                placeholder: {
+                    '/': 'Search',
+                },
+                noData: {
+                    '/': '没有找到结果',
+                },
+                depth: 6, // 搜索标题的最大程级, 1 - 6
+            },
+            // 字数统计
+            count:{
+                countable:true,
+                fontsize:'0.9em',
+                color:'rgb(90,90,90)',
+                language:'chinese'
+            },
+            // 加载主页
+            homepage: '_index.md',
+            // 加载侧边栏
+            loadSidebar: true,
+            // 不使用子目录侧边栏
+            alias: {
+                '/.*/_sidebar.md': '/_sidebar.md'
+            },
+            // 侧边栏最大层级 默认0不显示目录 1-n 显示n级标题
+            subMaxLevel: 6,
+            // 默认展开层级
+            sidebarDisplayLevel: 0,
+            // 加载导航栏
+            // loadNavbar: 'nav.md',
+            // 文件名作为标题
+            autoHeader: true,
+            //Auto2Top
+            auto2top: true,
+            // 自定义404
+            notFoundPage: '404.md',
+            executeScript: true,
+            basePath: '/',
+            themeable: {
+                readyTransition: true, // default
+                responsiveTables: true // default
+            },
+            copyCode: {
+                buttonText: 'Copy',
+                errorText: '失败',
+                successText: '已复制'
+            },
+            plugins: [
+                function (hook, vm) {
+                    hook.beforeEach(function (html) {
+                        if (/githubusercontent\.com/.test(vm.route.file)) {
+                            url = vm.route.file
+                                .replace('raw.githubusercontent.com', 'github.com')
+                                .replace(/\/master/, '/blob/master')
+                        } else {
+                            url = 'https://github.com/amd5/blog/master/' + vm.route.file
+                        }
+                        var editHtml = '[:memo: 修改文章](' + url + ')\n'
+                        return `${html} \n----\n ${editHtml}`;
+                    })
+                }
+            ],
+            pagination: {
+                // previousText: '上一章节',
+                // nextText: '下一章节',
+                crossChapter: true,
+                crossChapterText: true,
+            },
+            // 自定义底部 友情链接等
+            customFooter: {
+            // footerElement: footerNode,
+                textLinks: [
+                    {
+                        tagType: 'a',
+                        text: 'CSDN',
+                        link: 'https://blog.csdn.net/pro_fan'
+                    },
+                    {
+                        tagType: 'text',
+                        text: '更新时间：2022/04/15'
+                    }
+                ]
+            },
+            timeUpdater: {
+                text: "<div align='center' width='200px' style='color:gray;font-size:10px'>-------------- 最后更新于:&emsp;{docsify-updated} --------------</div>",
+                formatUpdated: "{YYYY}-{MM}-{DD} {HH}:{mm}:{ss}",
+                whereToPlace: "bottom"  // "top" or "bottom", default to "bottom"
+            },
+        }
+        const gitalk = new Gitalk({
+            clientID: '2e9677843c474642164',
+            clientSecret: '7af6573bbab3cd4a94fd27dbf18d6c6c119a025',
+            repo: 'docsifyGuide',
+            owner: 'pycrab',
+            admin: ['c32'],
+            distractionFreeMode: true
+        })
+        // 实例化评论容器 https://github.com/gitalk/gitalk
+        gitalk.render('gitalk-container')
+        // 监听URL中hash的变化，如果发现换了一个MD文件，那么刷新页面，解决整个网站使用一个gitalk评论issues的问题。
+        // window.onhashchange = function(event){
+        //     if(event.newURL.split('?')[0] !== event.oldURL .split('?')[0]) {
+        //         location.reload()
+        //     }
+        // }
+    </script>
+    <!-- docsify 框架核心代码 -->
+    <script src="https://qiniu.19aq.com/docsify.min.js"></script>
+    <!-- 支持图片缩小放大 -->
+    <script src="https://qiniu.19aq.com/zoom-image.min.js"></script>
+    <!--  全文搜索配置项-->
+    <script src="https://qiniu.19aq.com/search.min.js"></script>
+    <!--  字数统计-->
+    <script src="https://qiniu.19aq.com/countable.js"></script>
+    <!--  语言高亮-->
+    <script src="https://qiniu.19aq.com/prism-bash.min.js"></script>
+    <script src="https://qiniu.19aq.com/prism-php.min.js"></script>
+    <script src="https://qiniu.19aq.com/prism-css.min.js"></script>
+    <script src="https://qiniu.19aq.com/prism-docker.min.js"></script>
+    <script src="https://qiniu.19aq.com/prism-json.min.js"></script>
+    <script src="https://qiniu.19aq.com/prism-yaml.min.js"></script>
+    <!-- 复制代码 -->
+    <script src="https://qiniu.19aq.com/docsify-copy-code.min.js"></script>
+    <!-- 支持翻页 -->
+    <script src="https://qiniu.19aq.com/docsify-pagination.min.js"></script>
+    <!-- emoji表情 v4.13插件被弃用-->
+    <!-- <script src="https://qiniu.19aq.com/emoji.min.js"></script> -->
+    <!-- 返回顶部 -->
+    <script src="https://qiniu.19aq.com/docsify-backTop.min.js"></script>
+    <!-- 页尾 -->
+    <script src="https://qiniu.19aq.com/custom-footer.js"></script>
+    <!-- 最后更新时间 -->
+    <script src="https://qiniu.19aq.com/time-updater.min.js"></script>
+    <!-- 侧边栏加强 -->  <!-- 插件有问题,会自动回弹第一个菜单 -->
+    <script src="https://qiniu.19aq.com/docsify-sidebar-collapse.min.js"></script>
+    <!-- 点赞 -->
+
+    <!-- 文档加密 -->
+
+    <!-- 云图片 -->
+
+    <!-- 内容展开 -->
+
+    <!-- 标签 -->
+
+    <!-- 分类 -->
+
+    <!-- 归档 -->
+
+    <!-- 插件列表 -->
+    <!-- https://docsify.js.org/#/zh-cn/plugins?id=%e5%85%a8%e6%96%87%e6%90%9c%e7%b4%a2-search -->
+    <!-- 阅读进度条 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/docsify-progress@latest/dist/progress.min.js"></script> -->
+    
+    <!-- 中英文之间自动加空格 -->
+    <!-- <script src="https://qiniu.19aq.com/pangu.min.js"></script> -->
+
+    <!-- edit-on-github快速编辑文件 -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/docsify-edit-on-github@1/index.min.js"></script> -->
+    
+    <!-- <script src="https://qiniu.19aq.com/docsify-themeable.min.js"></script>  -->
+
+    <!-- 美化提示 -->
+    <!-- <script src="https://qiniu.19aq.com/docsify-plugin-flexible-alerts.min.js"></script> -->
+    <!-- 参考https://www.npmjs.com/package/docsify-plugin-flexible-alerts -->
+    <!-- 页面底部执行js -->
+    <script type="text/javascript">
+        
+    </script>
+</body>
+
+</html>
